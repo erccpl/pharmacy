@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Inventory</title>
+</head>
+<body>
+<h3 align="center"> Displaying inventory for product <span th:utext="${product_name}"></span></h3>
+<div align="right"><a th:href="@{'/logout'}" >Log out</a></div>
+<br><br>
+
+<div align="center">
+    <a href="new">Add a inventory entry for this product</a>
+    <br><br>
+    <table border="1" cellpadding="15">
+        <thead>
+        <tr>
+            <th>Product</th>
+            <th>Stock</th>
+            <th>Sale price</th>
+            <th>Expiration date</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${inventory}">
+            <td th:text="${product_name}"></td>
+            <td th:text="${item.stock}"></td>
+            <td th:text="${item.salePrice}"></td>
+            <td th:text="${item.expirationDate}"></td>
+            <td>
+                <a th:href="@{'/edit/'  }"> Edit </a> <br/>
+                <a th:href="@{'/delete/'    }"> Delete </a> <br/>
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+</body>
+</html>

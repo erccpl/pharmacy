@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Online Pharmacy Homepage</title>
+</head>
+<body>
+<div align="center">
+    <a href="new">Add an entry</a>
+    <br><br>
+    <a th:href="@{'/logout'}">Log out</a>
+    <table border="1" cellpadding="15">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Unit</th>
+            <th>Quantity</th>
+            <th>Retail Price</th>
+            <th>Description</th>
+            <th>Options</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="product : ${products}">
+            <td th:text="${product.name}"></td>
+            <td th:text="${product.category.name.displayName}"></td>
+            <td th:text="${product.unit.displayUnit}"></td>
+            <td th:text="${product.quantity}"></td>
+            <td th:text="${product.retailPrice}"></td>
+            <td th:text="${product.description}"></td>
+            <td>
+                <a th:href="@{'/edit/' + ${product.id} }"> Edit </a> <br/>
+                <a th:href="@{'/delete/' + ${product.id} }"> Delete </a> <br/>
+                <a th:with="product_name=${product.name}" th:href="@{'/products/' + ${product.id} + '/inventory'}"> View product inventory </a>
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+</div>
+
+
+
+</body>
+</html>
