@@ -25,5 +25,6 @@ This will generate the respective .jar files which can be then run from the targ
 java -jar pharmacy-backend/target/pharmacy-0.0.1-SNAPSHOT.jar       //runs on port 8080
 java -jar pharmacy-client/target/pharmacy-client-0.0.1-SNAPSHOT.jar //runs on port 8081
 ```
-To work this would also require a locally hosted PostgreSQL database on the default port.<br>
-I would like to eventually have the app connect to an externally hosted database, but the current setup is of course easier for development.
+At the moment for this would also require a locally hosted PostgreSQL database (eventually I would like to have the app connect to an externally hosted database).
+
+Example credentials: Admin is admin:admin, Normal user is a:a
