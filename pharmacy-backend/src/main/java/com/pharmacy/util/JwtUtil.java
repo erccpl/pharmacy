@@ -12,9 +12,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+// Source: https://github.com/koushikkothagal/spring-security-jwt
 @Service
 public class JwtUtil {
 
+    //In a production environment the secret key should be loaded from a source outside of the repository
     private String SECRET_KEY = "koronawirus";
 
     public String extractUsername(String token) {

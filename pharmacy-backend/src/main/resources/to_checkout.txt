@@ -1,8 +1,0 @@
-@OneToOne(cascade = CascadeType.MERGE)
-@Column(nullable = false)
-@JsonIgnore
-@Enumerated(EnumType.STRING)
-@PositiveOrZero
-the lombok library because it looks pretty cool
-what is cascadetyp.merge, and the other types as well
-rest controller vs controller

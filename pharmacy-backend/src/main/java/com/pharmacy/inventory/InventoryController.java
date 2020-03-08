@@ -16,8 +16,13 @@ public class InventoryController {
     private InventoryService inventoryService;
 
     @GetMapping("/products/{productId}/inventory")
-    private List<InventoryItem> getProductInventory(@PathVariable Long productId) {
-        return inventoryService.getInventoryItemsForProduct(productId);
+    private ResponseEntity<List<InventoryItem>> getProductInventory(@PathVariable Long productId) {
+        List<InventoryItem> inventory = inventoryService.getInventoryItemsForProduct(productId);
+        if (!inventory.isEmpty()) {
+            return new ResponseEntity<>(inventory, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping("/products/{productId}/inventory")
@@ -27,7 +32,6 @@ public class InventoryController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    //TODO: consistent naming
     @PutMapping("/products/{productId}/inventory/{itemId}")
     private ResponseEntity<String> updateProductInventoryItem (@RequestBody InventoryItem inventoryItem, @PathVariable Long productId, @PathVariable Long itemId) {
         inventoryItem.setProduct(new Product(productId));
@@ -39,7 +43,6 @@ public class InventoryController {
     @DeleteMapping("/products/{productId}/inventory/{itemId}")
     private ResponseEntity<String> deleteProductInventoryItem (@RequestBody InventoryItem item, @PathVariable Long productId, @PathVariable Long itemId) {
         item.setId(itemId);
-        //item.setProduct(new Product(productId));
         inventoryService.deleteInventoryItem(item);
         return new ResponseEntity<>(HttpStatus.OK);
     }
