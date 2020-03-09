@@ -5,6 +5,7 @@ import com.pharmacy.auth.AuthenticationResponse;
 import com.pharmacy.user.PharmacyUserDetailsService;
 import com.pharmacy.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -24,6 +25,12 @@ public class HomeController {
     private PharmacyUserDetailsService userDetailsService;
     @Autowired
     private JwtUtil jwtTokenUtil;
+
+
+    @GetMapping("/")
+    public ResponseEntity<String> dummyEntryPoint() {
+        return ResponseEntity.ok(new String("For test purposes"));
+    }
 
 
     @PostMapping("/authenticate")
