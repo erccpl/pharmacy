@@ -2,6 +2,8 @@ package com.pharmacy.product;
 
 import com.pharmacy.category.Category;
 import com.pharmacy.category.CategoryRepository;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,12 +14,11 @@ import java.util.Optional;
 //TODO: make Hibernate automatically check Category by name
 //TODO: error handling
 @Service
+@AllArgsConstructor
 public class ProductService {
 
-    @Autowired
-    private ProductRepository productRepository;
-    @Autowired
-    CategoryRepository categoryRepository;
+    private final ProductRepository productRepository;
+    private final CategoryRepository categoryRepository;
 
     public List<Product> findAllProducts() {
         return productRepository.findAll();
@@ -41,6 +42,5 @@ public class ProductService {
         Category category = categoryRepository.findByName(product.getCategory().getName());
         product.setCategory(category);
         productRepository.save(product);
-
     }
 }

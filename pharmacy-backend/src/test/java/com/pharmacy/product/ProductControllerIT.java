@@ -12,8 +12,6 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
-
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -46,16 +44,51 @@ public class ProductControllerIT {
         assertThat(length).isEqualTo(4);
     }
 
-
     @Test
     public void getOneProductTest() throws Exception {
+        testGetOneProduct(1L, "Visionix");
+        testGetOneProduct(2L, "MuscleRelief");
+        testGetOneProduct(3L, "NosePro");
+    }
 
-        Long id = 1L;
+    @Test
+    public void productNotFoundTest() throws Exception {
+        testProductNotFound(10L);
+        testProductNotFound(11L);
+        testProductNotFound(12L);
+    }
+
+
+
+
+
+
+
+    //---------------------------------------------------- Parameterized calls ----------------------------------------------------
+
+    public void testGetOneProduct(Long id, String productName) throws Exception {
         mockMvc.perform(get("/products/{id}", id))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.name", Matchers.is("Visionix")))
+                .andExpect(jsonPath("$.name", Matchers.is(productName)));
+    }
+
+    public void testProductNotFound (Long id) throws Exception {
+        mockMvc.perform(get("/products/{id}", id))
+                .andExpect(status().is(404))
                 .andDo(print());
     }
 
+
+
+
+
+
+    //addProduct
+
+    //findProduct
+
+    //updateProduct
+
+    //deleteProduct
 
 }

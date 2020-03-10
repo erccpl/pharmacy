@@ -1,39 +1,45 @@
 package com.pharmacy.product;
 
-
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.web.servlet.MockMvc;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Collections;
+import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
 
-//This is a UNIT TEST: no calls to the database, just checking if the call to the endpoint
-//gives correct results. So in this case we assume that the database part works and just want to test te controller
-@SpringBootTest
-@AutoConfigureMockMvc
+
+//This is a UNIT TEST: no calls to the database, no calls to the endpoints
+// should take milliseconds and should not start the Spring Boot app
+@ExtendWith(MockitoExtension.class)
 public class ProductServiceTest {
 
-    @Autowired
-    MockMvc mockMvc;
-
-    @MockBean
-    ProductRepository productRepository;
+    @Mock
+    private ProductRepository productRepository;
+    @InjectMocks
+    private ProductService productService;
 
     @Test
-    public void sampleTest() throws Exception {
+    public void findAllProductsTest() throws Exception {
         when(productRepository.findAll()).thenReturn(Collections.emptyList());
-        this.mockMvc.perform(get("/products")).andDo(print()).andExpect(status().isOk());
+        List<Product> products = productService.findAllProducts();
+        assertTrue(products.isEmpty());
         verify(productRepository).findAll();
     }
+
+
+    //addProductTest
+
+    //findProductTest
+
+    //updateProductTest
+
+    //deleteProductTest
 }
