@@ -1,5 +1,7 @@
 package com.pharmacy;
 
+import com.pharmacy.category.Category;
+import com.pharmacy.category.CategoryName;
 import com.pharmacy.inventory.InventoryItem;
 import com.pharmacy.product.Product;
 import com.pharmacy.user.User;
@@ -19,8 +21,11 @@ public class TestObjectFactory {
         return product;
     }
 
-    public static Product newProduct(Long id, String name) {
+    public static Product newProduct(Long id, String name, CategoryName categoryName) {
         Product product = new Product();
+        Category category = new Category();
+        category.setName(categoryName);
+        product.setCategory(category);
         product.setId(id);
         product.setName(name);
         return product;
@@ -34,24 +39,43 @@ public class TestObjectFactory {
         Set<Role> roles = new HashSet<>();
         roles.add(role);
 
-        User dummyUser = new User();
-        dummyUser.setId(id);
-        dummyUser.setUsername("dummy");
-        dummyUser.setRoles(roles);
-        dummyUser.setPassword("dummy");
-        dummyUser.setActive(1);
+        User user = new User();
+        user.setId(id);
+        user.setUsername("dummy");
+        user.setRoles(roles);
+        user.setPassword("dummy");
+        user.setActive(1);
 
-        return dummyUser;
+        return user;
     }
 
-    private static InventoryItem newInventoryForProduct(Long productId) {
+    private static User newAdminlUser(Long id) {
+        Role role = new Role();
+        role.setId(1L);
+        role.setName("ADMIN_ROLE");
+
+        Set<Role> roles = new HashSet<>();
+        roles.add(role);
+
+        User user = new User();
+        user.setId(id);
+        user.setUsername("dummy");
+        user.setRoles(roles);
+        user.setPassword("dummy");
+        user.setActive(1);
+
+        return user;
+    }
+
+    public static InventoryItem newInventoryItemForProduct(Long productId) {
         InventoryItem item = new InventoryItem();
-        item.getProduct().setId(productId);
+        item.setProduct(newProduct(productId, "test", CategoryName.AEROSOL));
         item.setStock((int)(10.0 * Math.random()));
         float salePrice = round((float)(10.0 * Math.random()), 2);
         item.setSalePrice(salePrice);
         //TODO: the Date type is pretty much deprecated
-        item.setExpirationDate(between(new Date(), new Date(2014, 02, 11)));
+        //TODO: dont think this works
+        item.setExpirationDate(between(new Date(2020, 03, 20), new Date(2022, 02, 11)));
         return item;
     }
 
