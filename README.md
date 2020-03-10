@@ -3,7 +3,7 @@ A REST API backend and client for managing a pharmacy.<br>
 The application currently features basic CRUD operations.<br>
 Project created as a means to familiarize myself with the Spring framework and related technologies.<br>
 
-<b>Technologies: Spring Boot, Spring Security, Spring JPA, JWT, Hibernate, PostgreSQL, Thymeleaf, Maven </b>
+<b>Technologies: Spring Boot, Spring Security, Spring JPA, JWT, Hibernate, PostgreSQL, Thymeleaf, Maven, JUnit, Mockito </b>
 
 ## Authentication
 The project uses JWTs as a means of authenticating users and grating them resource acces based on assigned roles.
